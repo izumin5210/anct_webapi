@@ -23,4 +23,9 @@ class Lecture < ActiveRecord::Base
   validates :divide, presence: true
   validates :term, presence: true
   validates :credit, presence: true
+
+  extend Enumerize
+  enumerize :required_selective, in: Settings.lecture.required_selective
+  enumerize :divide, in: Settings.lecture.divide
+  enumerize :term, in: Settings.lecture.term
 end

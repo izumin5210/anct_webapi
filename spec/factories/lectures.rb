@@ -22,9 +22,9 @@
 FactoryGirl.define do
   factory :lecture do
     title "Computer Programming I"
-    required_selective { Faker::Lorem.word }
-    divide { Faker::Lorem.word }
-    term { Faker::Lorem.word }
+    required_selective Settings.lecture.required_selective[0]
+    divide Settings.lecture.divide[0]
+    term Settings.lecture.term[0]
     credit 1
     category { Faker::Lorem.word }
     abstract { Faker::Lorem.paragraph }

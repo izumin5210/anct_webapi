@@ -1,0 +1,4 @@
+lecture:
+  required_selective: ['必修', '選択']
+  divide: ['一般', '専門']
+  term: ['前期', '後期', '通年']

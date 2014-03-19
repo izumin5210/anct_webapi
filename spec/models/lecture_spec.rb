@@ -44,4 +44,5 @@ describe Lecture do
   it 'is invalid w/o a credit' do
     expect(build(:lecture, credit: nil)).to have(1).errors_on(:credit)
   end
+
 end
