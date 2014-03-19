@@ -39,7 +39,10 @@ group :development do
 end
 
 group :test, :development do
-
+  gem 'rspec-rails'
+  gem 'guard-rspec'
+  gem 'factory_girl_rails'
+  gem 'spring'
 end
 
 # Use ActiveModel has_secure_password
