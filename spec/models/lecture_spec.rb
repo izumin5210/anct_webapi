@@ -21,14 +21,28 @@ require 'spec_helper'
 
 describe Lecture do
   describe 'association' do
-    let!(:lecture) { create(:lecture) }
-    let!(:lecturer) { create(:lecturer) }
-    before :each do
-      lecture.lecturers << lecturer
+    context 'with lecturer' do
+      let!(:lecture) { create(:lecture) }
+      let!(:lecturer) { create(:lecturer) }
+      before :each do
+        lecture.lecturers << lecturer
+      end
+
+      it 'is valid' do
+        expect(lecture.lecturers).to include(lecturer)
+      end
     end
 
-    it 'have the lecturer' do
-      expect(lecture.lecturers).to include(lecturer)
+    context 'with contact' do
+      let!(:lecture) { create(:lecture) }
+      let!(:contact) { create(:contact) }
+      before :each do
+        lecture.contacts << contact
+      end
+
+      it 'is valid' do
+        expect(lecture.contacts).to include(contact)
+      end
     end
   end
 end

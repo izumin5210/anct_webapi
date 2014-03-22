@@ -19,6 +19,8 @@
 
 class Lecture < ActiveRecord::Base
 
+  has_many :lecture_contacts
+  has_many :contacts, through: :lecture_contacts
   has_many :lecture_lecturers
   has_many :lecturers, through: :lecture_lecturers
 
