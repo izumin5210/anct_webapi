@@ -1,27 +1,30 @@
 # == Schema Information
 #
-# Table name: contacts
+# Table name: plans
 #
 #  id         :integer          not null, primary key
-#  email      :string(255)      not null
+#  lecture_id :integer          not null
+#  number     :integer          not null
+#  title      :string(255)
+#  detail     :text
 #  created_at :datetime
 #  updated_at :datetime
 #
 
 require 'spec_helper'
 
-describe Contact do
+describe Plan do
   describe 'association' do
     context 'with lecture' do
       let!(:lecture) { create(:lecture) }
-      let!(:contact) { create(:contact) }
+      let!(:plan) { create(:plan) }
       before :each do
-        contact.lectures << lecture
+        plan.lecture = lecture
       end
 
       it 'is valid' do
-        expect(contact.lectures).to include(lecture)
+        expect(plan.lecture).to eq lecture
       end
     end
   end
-end
+ end

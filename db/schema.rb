@@ -11,10 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140322172633) do
+ActiveRecord::Schema.define(version: 20140322175438) do
 
   create_table "contacts", force: true do |t|
-    t.string   "email"
+    t.string   "email",      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(version: 20140322172633) do
   add_index "departments", ["name"], name: "index_departments_on_name", unique: true
 
   create_table "lecture_contacts", force: true do |t|
-    t.integer  "lecture_id"
-    t.integer  "contact_id"
+    t.integer  "lecture_id", null: false
+    t.integer  "contact_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -87,5 +87,17 @@ ActiveRecord::Schema.define(version: 20140322172633) do
   add_index "lectures", ["required_selective"], name: "index_lectures_on_required_selective", unique: true
   add_index "lectures", ["term"], name: "index_lectures_on_term", unique: true
   add_index "lectures", ["title"], name: "index_lectures_on_title", unique: true
+
+  create_table "plans", force: true do |t|
+    t.integer  "lecture_id", null: false
+    t.integer  "number",     null: false
+    t.string   "title"
+    t.text     "detail"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "plans", ["lecture_id"], name: "index_plans_on_lecture_id"
+  add_index "plans", ["number"], name: "index_plans_on_number"
 
 end

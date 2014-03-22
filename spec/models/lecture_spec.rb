@@ -44,5 +44,17 @@ describe Lecture do
         expect(lecture.contacts).to include(contact)
       end
     end
+
+    context 'with plan' do
+      let!(:lecture) { create(:lecture) }
+      let!(:plan) { create(:plan) }
+      before :each do
+        lecture.plans << plan
+      end
+
+      it 'is valid' do
+        expect(lecture.plans).to include(plan)
+      end
+    end
   end
 end
