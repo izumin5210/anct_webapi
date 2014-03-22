@@ -20,29 +20,15 @@
 require 'spec_helper'
 
 describe Lecture do
+  describe 'association' do
+    let!(:lecture) { create(:lecture) }
+    let!(:lecturer) { create(:lecturer) }
+    before :each do
+      lecture.lecturers << lecturer
+    end
 
-  it 'is valid w/ a title, required selective, devide, term, credit' do
-    expect(build(:lecture)).to be_valid
+    it 'have the lecturer' do
+      expect(lecture.lecturers).to include(lecturer)
+    end
   end
-
-  it 'is invalid w/o a title' do
-    expect(build(:lecture, title: nil)).to have(1).errors_on(:title)
-  end
-
-  it 'is invalid w/o a required selective' do
-    expect(build(:lecture, required_selective: nil)).to have(1).errors_on(:required_selective)
-  end
-
-  it 'is invalid w/o a divide' do
-    expect(build(:lecture, divide: nil)).to have(1).errors_on(:divide)
-  end
-
-  it 'is invalid w/o a term' do
-    expect(build(:lecture, term: nil)).to have(1).errors_on(:term)
-  end
-
-  it 'is invalid w/o a credit' do
-    expect(build(:lecture, credit: nil)).to have(1).errors_on(:credit)
-  end
-
 end

@@ -1,16 +1,17 @@
 # == Schema Information
 #
-# Table name: departments
+# Table name: lecturers
 #
 #  id         :integer          not null, primary key
 #  name       :string(255)      not null
-#  abbr       :string(255)      not null
 #  created_at :datetime
 #  updated_at :datetime
 #
 
-require 'spec_helper'
+# Read about factories at https://github.com/thoughtbot/factory_girl
 
-describe Department do
-
+FactoryGirl.define do
+  factory :lecturer do
+    name { Faker::Name.name }
+  end
 end

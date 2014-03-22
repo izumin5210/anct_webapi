@@ -18,6 +18,10 @@
 #
 
 class Lecture < ActiveRecord::Base
+
+  has_many :lecture_lecturers
+  has_many :lecturers, through: :lecture_lecturers
+
   validates :title, presence: true
   validates :required_selective, presence: true
   validates :divide, presence: true
