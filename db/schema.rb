@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 20140322172633) do
     t.datetime "updated_at"
   end
 
+  add_index "contacts", ["email"], name: "index_contacts_on_email", unique: true
+
   create_table "courses", force: true do |t|
     t.string   "name",       null: false
     t.string   "abbr",       null: false
@@ -46,12 +48,16 @@ ActiveRecord::Schema.define(version: 20140322172633) do
     t.datetime "updated_at"
   end
 
+  add_index "lecture_contacts", ["lecture_id", "contact_id"], name: "index_lecture_contacts_on_lecture_id_and_contact_id", unique: true
+
   create_table "lecture_lecturers", force: true do |t|
     t.integer  "lecture_id",  null: false
     t.integer  "lecturer_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "lecture_lecturers", ["lecture_id", "lecturer_id"], name: "index_lecture_lecturers_on_lecture_id_and_lecturer_id", unique: true
 
   create_table "lecturers", force: true do |t|
     t.string   "name",       null: false
