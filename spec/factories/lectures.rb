@@ -15,6 +15,9 @@
 #  textbooks          :text
 #  created_at         :datetime
 #  updated_at         :datetime
+#  grade              :integer          not null
+#  department_id      :integer          not null
+#  course_id          :integer
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl
@@ -31,5 +34,10 @@ FactoryGirl.define do
     failure_absence { Faker::Lorem.paragraph }
     evaluation { Faker::Lorem.paragraph }
     textbooks { Faker::Lorem.paragraph }
+    grade { Faker::Number.digit.to_i + 1}
+
+    factory :proper_lecture do
+      department { FactoryGirl.create(:department) }
+    end
   end
 end

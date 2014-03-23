@@ -14,34 +14,21 @@ require 'spec_helper'
 describe Course do
 
   describe 'association' do
-    context 'with timetable' do
-      let!(:course) { create(:course) }
-      let!(:timetable) do
-        build(:timetable).tap do |t|
-          t.lecture_id = create(:lecture).id
-          t.department_id = create(:department).id
-        end
-      end
-      before(:each) { course.timetables << timetable }
+    let!(:course) { create(:course) }
+    let!(:lecture) { build(:lecture).tap { |l| l.department = create(:department) } }
+    let!(:timetable) { build(:timetable) }
+    before(:each) { course.lectures << lecture }
 
+    context 'with lecture' do
       it 'is valid' do
-        expect(course.timetables).to include timetable
+        expect(course.lectures).to include lecture
       end
     end
 
-    context 'with lecture' do
-      let!(:course) { create(:course) }
-      let!(:lecture) { create(:lecture) }
-      before :each do
-        timetable = build(:timetable).tap do |t|
-          t.lecture_id = lecture.id
-          t.department_id = create(:department).id
-        end
-        course.timetables << timetable
-      end
-
+    context 'with timetable' do
+      before(:each) { lecture.timetables << timetable }
       it 'is valid' do
-        expect(course.lectures).to include lecture
+        expect(course.timetables).to include timetable
       end
     end
   end

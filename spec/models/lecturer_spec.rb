@@ -13,7 +13,7 @@ require 'spec_helper'
 describe Lecturer do
   describe 'association' do
     context 'with lecture' do
-      let!(:lecture) { create(:lecture) }
+      let!(:lecture) { create(:proper_lecture) }
       let!(:lecturer) { create(:lecturer) }
       before :each do
         lecturer.lectures << lecture

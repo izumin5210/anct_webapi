@@ -66,28 +66,11 @@ namespace :anct do
         Course.create name: name, abbr: abbr.to_s
       end
 
-      puts 'import Timetable...'
-      timetables = []
-      Nokogiri::XML(open(TIMETABLE_PATH).read).xpath('//Lecture').each do |lecture_node|
+      syllabus_xml = Nokogiri::XML(open(SYLLABUS_PATH).read).xpath('//Course')
+      syllabus_xml.each do |lecture_node|
+        print "import Syllabus...(#{Lecture.count}/#{syllabus_xml.count})\r"
         department, course = parse_department_and_course(lecture_node)
-        parse_periods(lecture_node).each do |period|
-          # TODO: locationを忘れていた
-          timetable = Timetable.new(
-              year: 2013,
-              term: Settings.timetable.term[1],
-              wday: lecture_node.xpath('Wday').text,
-              grade: lecture_node.xpath('Grade').text,
-              period: period,
-              department: department,
-              course: course
-          )
-          lecture_node.xpath('Name').text.split('/').each { |title| timetables << [title, timetable] }
-        end
-      end
-
-      puts 'import Syllabus...'
-      Nokogiri::XML(open(SYLLABUS_PATH).read).xpath('//Course').each do |lecture_node|
-        lecture = Lecture.create(
+        lecture = Lecture.create!(
             title: lecture_node.xpath('Title').text,
             required_selective: lecture_node.xpath('RequiredSelective').text,
             divide: lecture_node.xpath('Divide').text,
@@ -97,14 +80,11 @@ namespace :anct do
             abstract: lecture_node.xpath('Abstract').text,
             failure_absence: lecture_node.xpath('FailureAbsence').text,
             evaluation: lecture_node.xpath('Evaluation').text,
-            textbooks: lecture_node.xpath('Textbooks').text
-        )
-        department, course = parse_department_and_course(lecture_node)
-        timetables.each do |t|
-          if t[1].department == department && t[1].course == course && same_title?(t[0], lecture.title)
-            lecture.timetables << t[1]
-          end
-        end
+            textbooks: lecture_node.xpath('Textbooks').text,
+            grade: lecture_node.xpath('Year').text,
+            department: department,
+            course: course
+          )
         lecture_node.xpath('Lecturers/Lecturer').each do |name|
           lecture.lecturers << (Lecturer.where(name: name.text).first || Lecturer.new(name: name.text))
         end
@@ -112,13 +92,40 @@ namespace :anct do
           lecture.contacts << (Contact.where(email: email.text).first || Contact.new(email: email.text))
         end
         lecture_node.xpath('Plans/Plan').each do |plan|
-          lecture.plans << Plan.new(
+          lecture.plans.create!(
               number: plan['TopicsNumber'],
               title: plan.xpath('TopicsTitle').text,
               detail: plan.xpath('TopicsDetail').text
-          )
+            )
         end
       end
+      puts "import Syllabus...(#{Lecture.count}/#{syllabus_xml.size})"
+
+      timetable_xml = Nokogiri::XML(open(TIMETABLE_PATH).read).xpath('//Lecture')
+      timetable_xml.each do |lecture_node|
+        # print "import Timetable...(#{Timetable.count}/#{timetable_xml.size})\r"
+        department, course = parse_department_and_course(lecture_node)
+        grade = lecture_node.xpath('Grade').text
+        lectures = if course.nil?
+            Lecture.where(grade: grade).where(department: department)
+          else
+            Lecture.where(grade: grade).where(department: department).where(course: course)
+          end
+        lectures.each do |lecture|
+          if same_title?(lecture.title, lecture_node.xpath('Name').text)
+            parse_periods(lecture_node).each do |period|
+              Timetable.create!(
+                  year: 2013,
+                  term: Settings.timetable.term[1],
+                  wday: lecture_node.xpath('Wday').text,
+                  period: period,
+                  lecture: lecture
+                )
+            end
+          end
+        end
+      end
+      puts "import Timetable...(#{Timetable.count}/#{timetable_xml.size})"
     end
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140323040817) do
+ActiveRecord::Schema.define(version: 20140323173847) do
 
   create_table "contacts", force: true do |t|
     t.string   "email",      null: false
@@ -80,10 +80,17 @@ ActiveRecord::Schema.define(version: 20140323040817) do
     t.text     "textbooks"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "grade",              null: false
+    t.integer  "department_id",      null: false
+    t.integer  "course_id"
   end
 
   add_index "lectures", ["credit"], name: "index_lectures_on_credit"
+  add_index "lectures", ["department_id"], name: "index_lectures_on_department_id"
   add_index "lectures", ["divide"], name: "index_lectures_on_divide"
+  add_index "lectures", ["grade", "department_id", "course_id"], name: "index_lectures_on_grade_and_department_id_and_course_id"
+  add_index "lectures", ["grade", "department_id"], name: "index_lectures_on_grade_and_department_id"
+  add_index "lectures", ["grade"], name: "index_lectures_on_grade"
   add_index "lectures", ["required_selective"], name: "index_lectures_on_required_selective"
   add_index "lectures", ["term"], name: "index_lectures_on_term"
   add_index "lectures", ["title"], name: "index_lectures_on_title"
@@ -101,21 +108,17 @@ ActiveRecord::Schema.define(version: 20140323040817) do
   add_index "plans", ["number"], name: "index_plans_on_number"
 
   create_table "timetables", force: true do |t|
-    t.integer  "lecture_id",    null: false
-    t.integer  "department_id", null: false
-    t.integer  "course_id"
-    t.integer  "year",          null: false
-    t.string   "term",          null: false
-    t.integer  "wday",          null: false
-    t.integer  "period",        null: false
-    t.integer  "grade",         null: false
+    t.integer  "lecture_id", null: false
+    t.integer  "year",       null: false
+    t.string   "term",       null: false
+    t.integer  "wday",       null: false
+    t.integer  "period",     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "timetables", ["department_id", "course_id", "grade", "year"], name: "index_timetables_on_class"
-  add_index "timetables", ["department_id"], name: "index_timetables_on_department_id"
   add_index "timetables", ["lecture_id"], name: "index_timetables_on_lecture_id"
-  add_index "timetables", ["year", "term", "period", "wday", "grade", "department_id", "course_id"], name: "index_timetables_on_cell", unique: true
+  add_index "timetables", ["year", "wday", "period"], name: "index_timetables_on_year_and_wday_and_period"
+  add_index "timetables", ["year", "wday"], name: "index_timetables_on_year_and_wday"
 
 end

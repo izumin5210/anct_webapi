@@ -11,8 +11,8 @@
 
 class Course < ActiveRecord::Base
 
-  has_many :timetables
-  has_many :lectures, through: :timetables
+  has_many :lectures
+  has_many :timetables, through: :lectures
 
   validates :name, presence: true, uniqueness: true
   validates :abbr, presence: true, uniqueness: true

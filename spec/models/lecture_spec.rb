@@ -15,77 +15,60 @@
 #  textbooks          :text
 #  created_at         :datetime
 #  updated_at         :datetime
+#  grade              :integer          not null
+#  department_id      :integer          not null
+#  course_id          :integer
 #
 
 require 'spec_helper'
 
 describe Lecture do
   describe 'association' do
-    context 'with timetable' do
-      let!(:lecture) { create(:lecture) }
-      let!(:timetable) do
-        build(:timetable).tap { |t| t.department_id = create(:department).id }
-      end
-      before(:each) { lecture.timetables << timetable }
+    let!(:lecture) { build(:lecture) }
+    let!(:timetable) { build(:timetable) }
+    let!(:department) { create(:department) }
+    let!(:course) { create(:course) }
+    let!(:lecturer) { create(:lecturer) }
+    let!(:contact) { create(:contact) }
+    let!(:plan) { build(:plan) }
 
+    context 'with timetable' do
+      before(:each) { lecture.timetables << timetable }
       it 'is valid' do
         expect(lecture.timetables).to include timetable
       end
     end
 
     context 'with lecturer' do
-      let!(:lecture) { create(:lecture) }
-      let!(:lecturer) { build(:lecturer) }
       before(:each) { lecture.lecturers << lecturer }
-
       it 'is valid' do
         expect(lecture.lecturers).to include lecturer
       end
     end
 
     context 'with department' do
-      let!(:lecture) { create(:lecture) }
-      let!(:department) { create(:department) }
-      before :each do
-        lecture.timetables << build(:timetable).tap { |t| t.department_id = department.id }
-      end
-
+      before(:each) { lecture.department = department }
       it 'is valid' do
-        expect(lecture.departments).to include department
+        expect(lecture.department).to eq department
       end
     end
 
     context 'with course' do
-      let!(:lecture) { create(:lecture) }
-      let!(:course) { create(:course) }
-      before :each do
-        timetable = build(:timetable).tap do |t|
-          t.department_id = create(:department).id
-          t.course_id = course.id
-        end
-        lecture.timetables << timetable
-      end
-
+      before(:each) { lecture.course = course }
       it 'is valid' do
-        expect(lecture.courses).to include course
+        expect(lecture.course).to eq course
       end
     end
 
     context 'with contact' do
-      let!(:lecture) { create(:lecture) }
-      let!(:contact) { build(:contact) }
       before(:each) { lecture.contacts << contact }
-
       it 'is valid' do
         expect(lecture.contacts).to include contact
       end
     end
 
     context 'with plan' do
-      let!(:lecture) { create(:lecture) }
-      let!(:plan) { build(:plan) }
       before(:each) { lecture.plans << plan }
-
       it 'is valid' do
         expect(lecture.plans).to include plan
       end

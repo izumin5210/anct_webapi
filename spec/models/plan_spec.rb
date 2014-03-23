@@ -15,13 +15,11 @@ require 'spec_helper'
 
 describe Plan do
   describe 'association' do
-    context 'with lecture' do
-      let!(:lecture) { create(:lecture) }
-      let!(:plan) { build(:plan) }
-      before :each do
-        plan.lecture = lecture
-      end
+    let!(:lecture) { create(:proper_lecture) }
+    let!(:plan) { build(:plan) }
 
+    context 'with lecture' do
+      before(:each) { plan.lecture = lecture }
       it 'is valid' do
         expect(plan.lecture).to eq lecture
       end

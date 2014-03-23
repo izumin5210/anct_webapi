@@ -12,13 +12,11 @@ require 'spec_helper'
 
 describe Contact do
   describe 'association' do
-    context 'with lecture' do
-      let!(:lecture) { create(:lecture) }
-      let!(:contact) { create(:contact) }
-      before :each do
-        contact.lectures << lecture
-      end
+    let!(:lecture) { create(:proper_lecture) }
+    let!(:contact) { create(:contact) }
 
+    context 'with lecture' do
+      before(:each) { contact.lectures << lecture }
       it 'is valid' do
         expect(contact.lectures).to include(lecture)
       end
