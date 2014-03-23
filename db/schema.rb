@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140322175438) do
+ActiveRecord::Schema.define(version: 20140323040817) do
 
   create_table "contacts", force: true do |t|
     t.string   "email",      null: false
@@ -99,5 +99,23 @@ ActiveRecord::Schema.define(version: 20140322175438) do
 
   add_index "plans", ["lecture_id"], name: "index_plans_on_lecture_id"
   add_index "plans", ["number"], name: "index_plans_on_number"
+
+  create_table "timetables", force: true do |t|
+    t.integer  "lecture_id",    null: false
+    t.integer  "department_id", null: false
+    t.integer  "course_id"
+    t.integer  "year",          null: false
+    t.string   "term",          null: false
+    t.integer  "wday",          null: false
+    t.integer  "period",        null: false
+    t.integer  "grade",         null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "timetables", ["department_id", "course_id", "grade", "year"], name: "index_timetables_on_class"
+  add_index "timetables", ["department_id"], name: "index_timetables_on_department_id"
+  add_index "timetables", ["lecture_id"], name: "index_timetables_on_lecture_id"
+  add_index "timetables", ["year", "term", "period", "wday", "grade", "department_id", "course_id"], name: "index_timetables_on_cell", unique: true
 
 end

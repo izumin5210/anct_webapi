@@ -17,7 +17,7 @@ describe Plan do
   describe 'association' do
     context 'with lecture' do
       let!(:lecture) { create(:lecture) }
-      let!(:plan) { create(:plan) }
+      let!(:plan) { build(:plan) }
       before :each do
         plan.lecture = lecture
       end

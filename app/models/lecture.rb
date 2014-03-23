@@ -19,6 +19,9 @@
 
 class Lecture < ActiveRecord::Base
 
+  has_many :timetables
+  has_many :departments, through: :timetables
+  has_many :courses, through: :timetables
   has_many :lecture_contacts
   has_many :contacts, through: :lecture_contacts
   has_many :lecture_lecturers

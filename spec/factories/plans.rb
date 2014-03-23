@@ -15,9 +15,8 @@
 
 FactoryGirl.define do
   factory :plan do
-    lecture_id 1
-    number 1
-    title "MyString"
-    detail "MyText"
+    number { Faker::Number.digit }
+    title { Faker::Lorem.sentence }
+    detail { Faker::Lorem.paragraph }
   end
 end

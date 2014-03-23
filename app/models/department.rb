@@ -10,6 +10,10 @@
 #
 
 class Department < ActiveRecord::Base
+
+  has_many :timetables
+  has_many :lectures, through: :timetables
+
   validates :name, presence: true, uniqueness: true
   validates :abbr, presence: true, uniqueness: true
 end
