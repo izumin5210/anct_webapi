@@ -60,3 +60,4 @@ end
 
 gem 'rails_config'
 gem 'enumerize'
+gem 'nokogiri'
