@@ -82,11 +82,11 @@ ActiveRecord::Schema.define(version: 20140322175438) do
     t.datetime "updated_at"
   end
 
-  add_index "lectures", ["credit"], name: "index_lectures_on_credit", unique: true
-  add_index "lectures", ["divide"], name: "index_lectures_on_divide", unique: true
-  add_index "lectures", ["required_selective"], name: "index_lectures_on_required_selective", unique: true
-  add_index "lectures", ["term"], name: "index_lectures_on_term", unique: true
-  add_index "lectures", ["title"], name: "index_lectures_on_title", unique: true
+  add_index "lectures", ["credit"], name: "index_lectures_on_credit"
+  add_index "lectures", ["divide"], name: "index_lectures_on_divide"
+  add_index "lectures", ["required_selective"], name: "index_lectures_on_required_selective"
+  add_index "lectures", ["term"], name: "index_lectures_on_term"
+  add_index "lectures", ["title"], name: "index_lectures_on_title"
 
   create_table "plans", force: true do |t|
     t.integer  "lecture_id", null: false

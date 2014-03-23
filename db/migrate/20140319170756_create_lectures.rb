@@ -15,10 +15,10 @@ class CreateLectures < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :lectures, :title, unique: true
-    add_index :lectures, :required_selective, unique: true
-    add_index :lectures, :divide, unique: true
-    add_index :lectures, :term, unique: true
-    add_index :lectures, :credit, unique: true
+    add_index :lectures, :title
+    add_index :lectures, :required_selective
+    add_index :lectures, :divide
+    add_index :lectures, :term
+    add_index :lectures, :credit
   end
 end
