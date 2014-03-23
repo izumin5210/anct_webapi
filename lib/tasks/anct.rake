@@ -103,7 +103,9 @@ namespace :anct do
 
       timetable_xml = Nokogiri::XML(open(TIMETABLE_PATH).read).xpath('//Lecture')
       timetable_xml.each do |lecture_node|
-        # print "import Timetable...(#{Timetable.count}/#{timetable_xml.size})\r"
+        print "import Timetable...(#{Timetable.count}/#{timetable_xml.size})\r"
+        location_text = lecture_node.xpath('Location').text
+        location = Location.where(name: location_text).first || Location.create(name: location_text)
         department, course = parse_department_and_course(lecture_node)
         grade = lecture_node.xpath('Grade').text
         lectures = if course.nil?
@@ -119,6 +121,7 @@ namespace :anct do
                   term: Settings.timetable.term[1],
                   wday: lecture_node.xpath('Wday').text,
                   period: period,
+                  location: location,
                   lecture: lecture
                 )
             end

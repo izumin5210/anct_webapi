@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140323173847) do
+ActiveRecord::Schema.define(version: 20140323190759) do
 
   create_table "contacts", force: true do |t|
     t.string   "email",      null: false
@@ -95,6 +95,14 @@ ActiveRecord::Schema.define(version: 20140323173847) do
   add_index "lectures", ["term"], name: "index_lectures_on_term"
   add_index "lectures", ["title"], name: "index_lectures_on_title"
 
+  create_table "locations", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "locations", ["name"], name: "index_locations_on_name", unique: true
+
   create_table "plans", force: true do |t|
     t.integer  "lecture_id", null: false
     t.integer  "number",     null: false
@@ -108,13 +116,14 @@ ActiveRecord::Schema.define(version: 20140323173847) do
   add_index "plans", ["number"], name: "index_plans_on_number"
 
   create_table "timetables", force: true do |t|
-    t.integer  "lecture_id", null: false
-    t.integer  "year",       null: false
-    t.string   "term",       null: false
-    t.integer  "wday",       null: false
-    t.integer  "period",     null: false
+    t.integer  "lecture_id",  null: false
+    t.integer  "year",        null: false
+    t.string   "term",        null: false
+    t.integer  "wday",        null: false
+    t.integer  "period",      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "location_id"
   end
 
   add_index "timetables", ["lecture_id"], name: "index_timetables_on_lecture_id"
