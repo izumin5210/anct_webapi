@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<Timetable_xml xmlns="http://www.akashi.ac.jp/timetable" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.akashi.ac.jp/xmlns/timetable timetable.xsd">
+<?xml version="1.0" encoding="utf-8" xmlns="http://www.akashi.ac.jp/timetable" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.akashi.ac.jp/xmlns/timetable timetable.xsd" ?>
+<Timetable_xml>
   <Timetable>
     <Common>
       <Institution>Akashi National College of Technology</Institution>
@@ -2050,7 +2050,7 @@
       </Lecture>
       
       <Lecture>
-        <Name>英語IIB</Name>
+        <Name>英語IIA</Name>
         <Grade>2</Grade>
         <Department>建築学科</Department>
         <Wday>5</Wday>
@@ -2632,7 +2632,7 @@
       </Lecture>
       
       <Lecture>
-        <Name>物理II</Name>
+        <Name>物理III</Name>
         <Grade>3</Grade>
         <Department>都市システム工学科</Department>
         <Wday>1</Wday>
@@ -3089,7 +3089,7 @@
       </Lecture>
       
       <Lecture>
-        <Name>物理II</Name>
+        <Name>物理III</Name>
         <Grade>3</Grade>
         <Department>建築学科</Department>
         <Wday>5</Wday>
@@ -3394,7 +3394,7 @@
       
       <!--====================電気情報工学科・情報工学コース====================-->
       <Lecture>
-        <Name>個体物性</Name>
+        <Name>固体物性</Name>
         <Grade>4</Grade>
         <Department>電気情報工学科</Department>
         <Course>電気電子工学コース</Course>
@@ -3901,7 +3901,7 @@
       </Lecture>
       
       <Lecture>
-        <Name>確率統計</Name>
+        <Name>確率・統計</Name>
         <Grade>4</Grade>
         <Department>電気情報工学科</Department>
         <Course>情報工学コース</Course>
@@ -5189,7 +5189,7 @@
       </Lecture>
       
       <Lecture>
-        <Name>確率統計II</Name>
+        <Name>確率・統計II</Name>
         <Grade>5</Grade>
         <Department>電気情報工学科</Department>
         <Course>電気電子工学コース</Course>
@@ -5568,7 +5568,7 @@
       </Lecture>
       
       <Lecture>
-        <Name>地質基礎構造</Name>
+        <Name>土質基礎構造</Name>
         <Grade>5</Grade>
         <Department>建築学科</Department>
         <Wday>2</Wday>
@@ -6130,7 +6130,7 @@
       </Lecture>
       
       <Lecture>
-        <Name>都市背観計画</Name>
+        <Name>都市景観計画</Name>
         <Grade>1</Grade>
         <Department>建築・都市システム工学専攻</Department>
         <Wday>3</Wday>

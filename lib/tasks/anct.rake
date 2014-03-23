@@ -1,8 +1,54 @@
 require 'nokogiri'
-# require 'open-uri'
+require 'nkf'
 
-SYLLABUS_PATH = "#{Rails.root}/db/master/syllabus2013.xml"
-# SYLLABUS_PATH = 'http://www.akashi.ac.jp/data/syllabus/syllabus2013.xml'
+SYLLABUS_PATH = "#{Rails.root}/db/master/syllabus2013.xml".freeze
+TIMETABLE_PATH = "#{Rails.root}/db/master/timetable201310.xml".freeze
+
+def parse_periods(lecture_node)
+  start_period = case lecture_node.xpath('StartTime').text
+    when '09:00:00+09:00' then 1
+    when '10:40:00+09:00' then 2
+    when '13:00:00+09:00' then 3
+    when '14:40:00+09:00' then 4
+    else nil
+    end
+  end_period = case lecture_node.xpath('EndTime').text
+    when '10:30:00+09:00' then 1
+    when '12:10:00+09:00' then 2
+    when '14:30:00+09:00' then 3
+    when '16:10:00+09:00' then 4
+    else nil
+    end
+
+  if start_period == end_period || end_period.nil?
+    [start_period]
+  elsif end_period - start_period == 1
+    [start_period, end_period]
+  else
+    [*start_period..end_period]
+  end
+end
+
+def parse_department_and_course(lecture_node)
+  department, course = nil
+  if lecture_node.name == 'Lecture'
+    department = lecture_node.xpath('Department').text
+    course = lecture_node.xpath('Course').text
+  else
+    department, course = lecture_node.xpath('Department').text.split(' ')
+  end
+  if ['機械・電子システム工学専攻', '建築・都市システム工学専攻'].include? department
+    course = department
+    department = '専攻科'
+  end
+  [Department.where(name: department).first, Course.where(name: course).first]
+end
+
+def same_title?(title1, title2)
+  t1 = NKF.nkf('-w -W -mZ01', title1).gsub(/Ⅰ/, 'I').gsub(/Ⅱ/, 'II').gsub(/Ⅲ/, 'III').gsub(/Ⅳ/, 'IV').gsub(/Ⅴ/, 'V').gsub(/\([男|女]子\)/, '')
+  t2 = NKF.nkf('-w -W -mZ01', title2).gsub(/Ⅰ/, 'I').gsub(/Ⅱ/, 'II').gsub(/Ⅲ/, 'III').gsub(/Ⅳ/, 'IV').gsub(/Ⅴ/, 'V').gsub(/\([男|女]子\)/, '')
+  t1 == t2
+end
 
 namespace :anct do
   namespace :master do
@@ -20,28 +66,52 @@ namespace :anct do
         Course.create name: name, abbr: abbr.to_s
       end
 
+      puts 'import Timetable...'
+      timetables = []
+      Nokogiri::XML(open(TIMETABLE_PATH).read).xpath('//Lecture').each do |lecture_node|
+        department, course = parse_department_and_course(lecture_node)
+        parse_periods(lecture_node).each do |period|
+          # TODO: locationを忘れていた
+          timetable = Timetable.new(
+              year: 2013,
+              term: Settings.timetable.term[1],
+              wday: lecture_node.xpath('Wday').text,
+              grade: lecture_node.xpath('Grade').text,
+              period: period,
+              department: department,
+              course: course
+          )
+          lecture_node.xpath('Name').text.split('/').each { |title| timetables << [title, timetable] }
+        end
+      end
+
       puts 'import Syllabus...'
-      xml = Nokogiri::XML(open(SYLLABUS_PATH).read)
-      xml.xpath('//Course').each do |course|
+      Nokogiri::XML(open(SYLLABUS_PATH).read).xpath('//Course').each do |lecture_node|
         lecture = Lecture.create(
-            title: course.xpath('Title').text,
-            required_selective: course.xpath('RequiredSelective').text,
-            divide: course.xpath('Divide').text,
-            term: course.xpath('Term').text,
-            credit: course.xpath('Credit').text,
-            category: course.xpath('Category').text,
-            abstract: course.xpath('Abstract').text,
-            failure_absence: course.xpath('FailureAbsence').text,
-            evaluation: course.xpath('Evaluation').text,
-            textbooks: course.xpath('Textbooks').text
+            title: lecture_node.xpath('Title').text,
+            required_selective: lecture_node.xpath('RequiredSelective').text,
+            divide: lecture_node.xpath('Divide').text,
+            term: lecture_node.xpath('Term').text,
+            credit: lecture_node.xpath('Credit').text,
+            category: lecture_node.xpath('Category').text,
+            abstract: lecture_node.xpath('Abstract').text,
+            failure_absence: lecture_node.xpath('FailureAbsence').text,
+            evaluation: lecture_node.xpath('Evaluation').text,
+            textbooks: lecture_node.xpath('Textbooks').text
         )
-        course.xpath('Lecturers/Lecturer').each do |name|
+        department, course = parse_department_and_course(lecture_node)
+        timetables.each do |t|
+          if t[1].department == department && t[1].course == course && same_title?(t[0], lecture.title)
+            lecture.timetables << t[1]
+          end
+        end
+        lecture_node.xpath('Lecturers/Lecturer').each do |name|
           lecture.lecturers << (Lecturer.where(name: name.text).first || Lecturer.new(name: name.text))
         end
-        course.xpath('Contacts/Mail').each do |email|
+        lecture_node.xpath('Contacts/Mail').each do |email|
           lecture.contacts << (Contact.where(email: email.text).first || Contact.new(email: email.text))
         end
-        course.xpath('Plans/Plan').each do |plan|
+        lecture_node.xpath('Plans/Plan').each do |plan|
           lecture.plans << Plan.new(
               number: plan['TopicsNumber'],
               title: plan.xpath('TopicsTitle').text,
