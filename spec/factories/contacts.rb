@@ -12,6 +12,6 @@
 
 FactoryGirl.define do
   factory :contact do
-    email "MyString"
+    email { Faker::Internet.email }
   end
 end

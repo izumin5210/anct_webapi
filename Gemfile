@@ -47,6 +47,7 @@ end
 
 group :test do
   gem 'faker'
+  gem 'json_spec'
 end
 
 # Use ActiveModel has_secure_password

@@ -1,0 +1,25 @@
+json.lecture do
+  json.(@lecture, :id, :title, :required_selective, :divide, :term, :credit, :category, :abstract,
+      :failure_absence, :evaluation, :textbooks, :grade)
+  json.department do
+    json.(@lecture.department, :id, :name, :abbr)
+  end
+  json.course do
+    json.(@lecture.course, :id, :name, :abbr) if @lecture.course.present?
+  end
+  json.timetables @lecture.timetables do |timetable|
+    json.(timetable, :id, :year, :term, :wday, :period)
+    json.location do
+      json.(timetable.location, :id, :name)
+    end
+  end
+  json.lecturers @lecture.lecturers do |lecturer|
+    json.(lecturer, :id, :name)
+  end
+  json.contacts @lecture.contacts do |contact|
+    json.(contact, :id, :email)
+  end
+  json.plans @lecture.plans do |plan|
+    json.(plan, :id, :number, :title, :detail)
+  end
+end

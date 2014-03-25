@@ -37,7 +37,15 @@ FactoryGirl.define do
     grade { Faker::Number.digit.to_i + 1}
 
     factory :proper_lecture do
-      department { FactoryGirl.create(:department) }
+      department { create(:department) }
+      course { create(:course) }
+      after(:create) do |lecture|
+        3.times do
+          lecture.lecturers << build(:lecturer)
+          lecture.contacts << build(:contact)
+          lecture.plans << build(:plan)
+        end
+      end
     end
   end
 end
