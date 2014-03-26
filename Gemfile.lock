@@ -30,6 +30,10 @@ GEM
       rake (>= 0.8.7)
     arel (4.0.2)
     atomic (1.1.16)
+    autodoc (0.3.5)
+      actionpack
+      activesupport (>= 3.0.0)
+      rspec
     better_errors (1.1.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -53,6 +57,7 @@ GEM
       execjs
     coffee-script-source (1.7.0)
     columnize (0.3.6)
+    database_cleaner (1.2.0)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
     diff-lcs (1.2.5)
@@ -198,9 +203,11 @@ PLATFORMS
 
 DEPENDENCIES
   annotate
+  autodoc
   better_errors
   binding_of_caller
   coffee-rails (~> 4.0.0)
+  database_cleaner
   enumerize
   factory_girl_rails
   faker

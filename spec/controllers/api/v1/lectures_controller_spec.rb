@@ -11,7 +11,7 @@ describe Api::V1::LecturesController do
   end
 
   describe 'GET #show' do
-    let(:lecture) { create(:proper_lecture) }
+    let!(:lecture) { create(:proper_lecture) }
     before(:each) { get :show, id: lecture }
 
     context 'with valid id' do
@@ -20,7 +20,7 @@ describe Api::V1::LecturesController do
         expect(response.status).to eq 200
       end
 
-      it 'returns lecture json' do
+      it 'returns lecture json', autodoc: true do
         expect(response.body).to have_json_path('lecture')
         expect(response.body).to be_json_eql(lecture.id).at_path('lecture/id')
         expect(response.body).to be_json_eql("\"#{lecture.title}\"").at_path('lecture/title')
@@ -47,7 +47,7 @@ describe Api::V1::LecturesController do
           expect(response.body).to be_json_eql(timetable.wday).at_path("lecture/timetables/#{i}/wday")
           expect(response.body).to be_json_eql(timetable.period).at_path("lecture/timetables/#{i}/period")
           expect(response.body).to be_json_eql(timetable.location.id).at_path("lecture/timetables/#{i}/location/id")
-          expect(response.body).to be_json_eql("\"#{timetable.locaton.name}\"").at_path("lecture/timetables/#{i}/location/name")
+          expect(response.body).to be_json_eql("\"#{timetable.location.name}\"").at_path("lecture/timetables/#{i}/location/name")
         end
         lecture.lecturers.each.with_index do |lecturer, i|
           expect(response.body).to be_json_eql(lecturer.id).at_path("lecture/lecturers/#{i}/id")
