@@ -50,6 +50,7 @@ RSpec.configure do |config|
 
   config.include FactoryGirl::Syntax::Methods
 
-  config.render_views = true
   config.include JsonSpec::Helpers
+
+  Autodoc.configuration.toc = true
 end
