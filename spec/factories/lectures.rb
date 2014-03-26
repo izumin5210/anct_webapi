@@ -24,7 +24,7 @@
 
 FactoryGirl.define do
   factory :lecture do
-    title "Computer Programming I"
+    title { Faker::Lorem.word }
     required_selective Settings.lecture.required_selective[0]
     divide Settings.lecture.divide[0]
     term Settings.lecture.term[0]
@@ -39,12 +39,17 @@ FactoryGirl.define do
     factory :proper_lecture do
       department { create(:department) }
       course { create(:course) }
-      after(:create) do |lecture|
-        3.times do
-          lecture.lecturers << build(:lecturer)
-          lecture.contacts << build(:contact)
-          lecture.plans << build(:plan)
-        end
+      ignore do
+        timetables_count 2
+        lecturers_count 2
+        contacts_count 2
+        plans_count 2
+      end
+      after(:build) do |lecture, evaluator|
+        create_list(:timetable, evaluator.timetables_count, lecture: lecture)
+        create_list(:plan, evaluator.plans_count, lecture: lecture)
+        lecture.lecturers << create_list(:lecturer, evaluator.lecturers_count)
+        lecture.contacts << create_list(:contact, evaluator.contacts_count)
       end
     end
   end

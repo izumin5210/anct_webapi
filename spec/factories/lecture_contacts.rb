@@ -13,7 +13,7 @@
 
 FactoryGirl.define do
   factory :lecture_contact do
-    lecture_id 1
-    contact_id 1
+    lecture_id { Faker::Number.digit }
+    contact_id { Faker::Number.digit }
   end
 end

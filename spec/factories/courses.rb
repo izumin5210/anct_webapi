@@ -13,7 +13,7 @@
 
 FactoryGirl.define do
   factory :course do
-    name "Computer Engineering Course"
-    abbr "j"
+    name { Faker::Lorem.word }
+    abbr { Faker::Lorem.word }
   end
 end

@@ -13,7 +13,7 @@
 
 FactoryGirl.define do
   factory :department do
-    name "Mechanical Engineering"
-    abbr "m"
+    name { Faker::Lorem.word }
+    abbr { Faker::Lorem.word }
   end
 end

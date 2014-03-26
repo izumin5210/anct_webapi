@@ -21,9 +21,10 @@ FactoryGirl.define do
     term Settings.timetable.term[0]
     wday { Time.now.wday }
     period { Faker::Number.digit.to_i + 1 }
+    location { create(:location) }
 
     factory :proper_timetable do
-      lecture { FactoryGirl.create(:proper_lecture) }
+      lecture { create(:proper_lecture) }
     end
   end
 end
