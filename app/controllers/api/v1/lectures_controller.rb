@@ -12,5 +12,7 @@ class Api::V1::LecturesController < ApplicationController
 
   def set_lecture
     @lecture = Lecture.find(params[:id])
+  rescue
+    render json: {message: 'The lecture is not exist.'}, status: :not_found
   end
 end

@@ -16,97 +16,97 @@ Host: www.example.com
 ```
 HTTP/1.1 200
 Cache-Control: max-age=0, private, must-revalidate
-Content-Length: 1847
+Content-Length: 1755
 Content-Type: application/json; charset=utf-8
-ETag: "710739a1acc7e46d9e3ea36d72e4dc25"
+ETag: "8bf04880cc155b4f9ccb64665468afb7"
 Set-Cookie: request_method=GET; path=/
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: 1d6110aa-c026-495b-a479-df5ce24f0993
-X-Runtime: 0.052506
+X-Request-Id: 35939a38-ae76-405c-87fb-a2b39a4cf1df
+X-Runtime: 0.027699
 X-UA-Compatible: chrome=1
 X-XSS-Protection: 1; mode=block
 
 {
   "lecture": {
     "id": 1,
-    "title": "sunt",
+    "title": "ipsam",
     "required_selective": "必修",
     "divide": "一般",
     "term": "前期",
     "credit": 1,
-    "category": "et",
-    "abstract": "Similique blanditiis eaque tempora quidem accusamus. Odio occaecati dignissimos provident reprehenderit quia voluptas. Architecto aut exercitationem qui error a similique. Voluptas natus molestiae id non possimus exercitationem.",
-    "failure_absence": "Et architecto dolores officiis aut quibusdam quaerat. Eum laborum voluptatem illum. Nihil dolorem cum modi error perspiciatis dolor est.",
-    "evaluation": "Hic consequuntur sit quidem necessitatibus voluptatem non quisquam. Porro commodi voluptatem aut rerum molestiae. Labore culpa autem qui.",
-    "textbooks": "Saepe quia sit eos est quidem maiores facere. A accusamus nesciunt unde ducimus dolor. Quisquam reiciendis corporis velit dicta voluptatem qui.",
+    "category": "eos",
+    "abstract": "Voluptatem non voluptatem. Quo qui excepturi. Voluptates in expedita a quia. Est deleniti quo et sequi. Et voluptas architecto.",
+    "failure_absence": "A at sequi non. Aut rerum eum. Maxime optio est.",
+    "evaluation": "Ut autem velit. Dolorem voluptatem voluptatum consequuntur ut. Quo enim sed occaecati ut asperiores. Incidunt iste omnis.",
+    "textbooks": "Ea voluptatem consequuntur quam ut pariatur vitae. Sed deleniti placeat voluptatibus totam aut dolore. Ad aliquid quae soluta. Nihil sint hic autem ea molestiae expedita assumenda. Dolorem delectus libero.",
     "grade": 8,
     "department": {
       "id": 1,
-      "name": "nisi",
-      "abbr": "aliquid"
+      "name": "ex",
+      "abbr": "qui"
     },
     "course": {
       "id": 1,
-      "name": "ut",
-      "abbr": "consequatur"
+      "name": "ea",
+      "abbr": "praesentium"
     },
     "timetables": [
       {
         "id": 1,
         "year": 2014,
         "term": "前期",
-        "wday": 4,
-        "period": 9,
+        "wday": 5,
+        "period": 6,
         "location": {
           "id": 1,
-          "name": "Product Directives Analyst"
+          "name": "Product Quality Assistant"
         }
       },
       {
         "id": 2,
         "year": 2014,
         "term": "前期",
-        "wday": 4,
-        "period": 6,
+        "wday": 5,
+        "period": 4,
         "location": {
           "id": 2,
-          "name": "Legacy Web Strategist"
+          "name": "Direct Creative Facilitator"
         }
       }
     ],
     "lecturers": [
       {
         "id": 1,
-        "name": "Miss Meggie Grant"
+        "name": "Gregory Simonis Sr."
       },
       {
         "id": 2,
-        "name": "Iva Armstrong"
+        "name": "Joelle Ward"
       }
     ],
     "contacts": [
       {
         "id": 1,
-        "email": "stevie@kub.biz"
+        "email": "edward@schamberger.org"
       },
       {
         "id": 2,
-        "email": "levi_rice@goyettedamore.org"
+        "email": "tiana_koch@jerdebauch.com"
       }
     ],
     "plans": [
       {
         "id": 1,
-        "number": 2,
-        "title": "Aliquid est iure natus ducimus quod consequatur consequatur atque.",
-        "detail": "Et quaerat sunt sed. Aut voluptatem quia excepturi. Totam inventore neque natus distinctio qui. Facilis nemo velit rerum asperiores eligendi qui. Esse distinctio delectus tenetur."
+        "number": 6,
+        "title": "Praesentium eos amet dolores debitis ducimus dolorem aut.",
+        "detail": "In reprehenderit in cupiditate saepe nam. Cum voluptas amet voluptate. Quos ut autem perspiciatis nulla laudantium maiores."
       },
       {
         "id": 2,
-        "number": 7,
-        "title": "Dolorum quia sed deleniti.",
-        "detail": "Quas repellendus explicabo cum eveniet iste qui. Ut qui consequuntur. Aut et est illo dolorem optio minima doloremque."
+        "number": 8,
+        "title": "Ut dignissimos suscipit earum eum labore eos.",
+        "detail": "Eum voluptates culpa sunt nisi. Rem temporibus reprehenderit sed culpa. Non id enim modi possimus ad minima in. Ut vero vitae soluta libero qui voluptate. Eos quam ut ullam praesentium nostrum incidunt nihil."
       }
     ]
   }

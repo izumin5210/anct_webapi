@@ -27,7 +27,10 @@ describe Api::V1::LecturesController do
     end
 
     context 'with invalid id' do
-      it 'returns 404 not found'
+      it 'returns 404 not found' do
+        get :show, id: 65536
+        expect(response.status).to eq 404
+      end
     end
   end
 
