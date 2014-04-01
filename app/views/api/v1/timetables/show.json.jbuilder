@@ -1,6 +1,4 @@
+json.key_format! camelize: :lower
 json.timetable do
-  json.(@timetable, :id, :lecture_id, :year, :term, :wday, :period)
-  json.location do
-    json.(@timetable.location, :id, :name)
-  end
+  json.partial! 'timetable', timetable: @timetable
 end

@@ -17,7 +17,6 @@ describe Api::V1::TimetablesController do
 
     context 'with valid id' do
       it 'returns http success(200 OK)' do
-        # TODO: FactoryGirlで謎の無限ループが起きてる
         expect(response).to be_success
         expect(response.status).to eq 200
       end

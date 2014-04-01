@@ -7,14 +7,13 @@ describe "Api::V1::Timetables" do
   end
 
   describe "GET /api/v1/timetables/:id" do
-    # TODO: FactoryGirlで謎の無限ループが起きてる
     let(:timetable) { create(:proper_timetable) }
     before(:each) { get "api/v1/timetables/#{timetable.id}" }
 
     it 'returns timetable json', autodoc: true do
       expect(response.body).to have_json_path('timetable')
       expect(response.body).to be_json_eql(timetable.id).at_path('timetable/id')
-      expect(response.body).to be_json_eql(timetable.lecture_id).at_path('timetable/lecture_id')
+      expect(response.body).to be_json_eql(timetable.lecture_id).at_path('timetable/lectureId')
       expect(response.body).to be_json_eql(timetable.year).at_path('timetable/year')
       expect(response.body).to be_json_eql("\"#{timetable.term}\"").at_path('timetable/term')
       expect(response.body).to be_json_eql(timetable.wday).at_path('timetable/wday')
