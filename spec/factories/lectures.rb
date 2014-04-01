@@ -35,9 +35,9 @@ FactoryGirl.define do
     evaluation { Faker::Lorem.paragraph }
     textbooks { Faker::Lorem.paragraph }
     grade { Faker::Number.digit.to_i + 1}
+    department { create(:department) }
 
     factory :proper_lecture do
-      department { create(:department) }
       course { create(:course) }
       ignore do
         timetables_count 2

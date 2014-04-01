@@ -24,7 +24,7 @@ FactoryGirl.define do
     location { create(:location) }
 
     factory :proper_timetable do
-      lecture { create(:proper_lecture) }
+      lecture { create(:lecture) }
     end
   end
 end

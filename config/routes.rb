@@ -3,6 +3,7 @@ AnctWebapi::Application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :lectures, only: [:index, :show]
+      resources :timetables, only: [:index, :show]
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.
