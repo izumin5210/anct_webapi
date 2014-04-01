@@ -34,18 +34,6 @@ describe Timetable do
       end
     end
 
-    context 'with department' do
-      it 'is valid' do
-        expect(timetable.lecture.department).to eq department
-      end
-    end
-
-    context 'with course' do
-      it 'is valid' do
-        expect(timetable.lecture.course).to eq course
-      end
-    end
-
     context 'with location' do
       before(:each) { timetable.location = location }
       it 'is valid' do
