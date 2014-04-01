@@ -1,8 +1,23 @@
+require 'anct'
+
 class Api::V1::TimetablesController < ApplicationController
   before_action :set_timetable, only: [:show]
   respond_to :json
 
   def index
+    @timetables = if params[:year].blank? && params[:term].blank?
+         Timetable.now
+       elsif params[:year].present? && params[:term].blank?
+         Timetable.where(year: params[:year], term: Anct.term)
+       elsif params[:year].blank? && params[:term].present?
+         Timetable.where(year: Anct.fiscal_year, term: params[:term])
+       else
+         Timetable.where(year: params[:year], term: params[:term])
+       end
+
+    @timetables = @timetables.department(params[:department]) if params[:department].present?
+    @timetables = @timetables.course(params[:course]) if params[:course].present?
+    @timetables = @timetables.grade(params[:grade]) if params[:course].present?
   end
 
   def show
