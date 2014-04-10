@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140410113827) do
+ActiveRecord::Schema.define(version: 20140410161747) do
 
   create_table "contacts", force: true do |t|
     t.string   "email",      null: false
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 20140410113827) do
     t.integer  "year"
   end
 
+  add_index "lectures", ["course_id"], name: "index_lectures_on_course_id"
   add_index "lectures", ["credit"], name: "index_lectures_on_credit"
   add_index "lectures", ["department_id"], name: "index_lectures_on_department_id"
   add_index "lectures", ["divide"], name: "index_lectures_on_divide"
@@ -128,6 +129,7 @@ ActiveRecord::Schema.define(version: 20140410113827) do
   end
 
   add_index "timetables", ["lecture_id"], name: "index_timetables_on_lecture_id"
+  add_index "timetables", ["term", "year"], name: "index_timetables_on_term_and_year"
   add_index "timetables", ["year", "wday", "period"], name: "index_timetables_on_year_and_wday_and_period"
   add_index "timetables", ["year", "wday"], name: "index_timetables_on_year_and_wday"
 
