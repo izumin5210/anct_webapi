@@ -16,14 +16,14 @@ Host: www.example.com
 ```
 HTTP/1.1 200
 Cache-Control: max-age=0, private, must-revalidate
-Content-Length: 143
+Content-Length: 166
 Content-Type: application/json; charset=utf-8
-ETag: "ffa7fee82ffd07c2738daf2480ae0106"
+ETag: "5046bdc4e22b5ba22af13e0419914ded"
 Set-Cookie: request_method=GET; path=/
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
-X-Request-Id: 962ca3c9-7395-4c67-b922-5270aaaeba82
-X-Runtime: 0.011706
+X-Request-Id: efd5ce02-4a20-4100-915a-e81c17ec68d9
+X-Runtime: 0.016680
 X-UA-Compatible: chrome=1
 X-XSS-Protection: 1; mode=block
 
@@ -33,11 +33,12 @@ X-XSS-Protection: 1; mode=block
     "lectureId": 1,
     "year": 2014,
     "term": "前期",
-    "wday": 3,
-    "period": 9,
+    "wday": 4,
+    "period": 8,
+    "title": "sit",
     "location": {
       "id": 1,
-      "name": "International Web Coordinator"
+      "name": "National Mobility Representative"
     }
   }
 }

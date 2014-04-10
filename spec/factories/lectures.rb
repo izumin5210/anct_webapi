@@ -36,6 +36,7 @@ FactoryGirl.define do
     textbooks { Faker::Lorem.paragraph }
     grade { Faker::Number.digit.to_i + 1}
     department { create(:department) }
+    year { Time.now.year }
 
     factory :proper_lecture do
       course { create(:course) }
