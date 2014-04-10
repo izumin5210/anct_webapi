@@ -37,6 +37,7 @@ group :development do
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'annotate'
+  gem 'bullet'
 end
 
 group :test, :development do
