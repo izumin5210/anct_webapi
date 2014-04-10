@@ -15,6 +15,8 @@ class Api::V1::TimetablesController < ApplicationController
          Timetable.where(year: params[:year], term: params[:term])
        end
 
+    @timetables = @timetables.includes(:location)
+
     @timetables = @timetables.department(params[:department]) if params[:department].present?
     @timetables = @timetables.course(params[:course]) if params[:course].present?
     @timetables = @timetables.grade(params[:grade]) if params[:grade].present?
