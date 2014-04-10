@@ -17,7 +17,7 @@ class Api::V1::TimetablesController < ApplicationController
 
     @timetables = @timetables.department(params[:department]) if params[:department].present?
     @timetables = @timetables.course(params[:course]) if params[:course].present?
-    @timetables = @timetables.grade(params[:grade]) if params[:course].present?
+    @timetables = @timetables.grade(params[:grade]) if params[:grade].present?
     @timetables = @timetables.where(wday: params[:wday]) if params[:wday].present?
     @timetables = @timetables.where(period: params[:period]) if params[:period].present?
   end

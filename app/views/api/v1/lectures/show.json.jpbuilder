@@ -1,3 +1,4 @@
+json.key_format! camelize: :lower
 json.lecture do
   json.(@lecture, :id, :title, :required_selective, :divide, :term, :credit, :category, :abstract,
       :failure_absence, :evaluation, :textbooks, :grade)
