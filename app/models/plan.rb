@@ -17,5 +17,4 @@ class Plan < ActiveRecord::Base
 
   validates :lecture_id, presence: true
   validates :number, presence: true
-  validates :title, presence: true
 end
